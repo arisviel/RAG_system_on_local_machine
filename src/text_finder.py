@@ -4,7 +4,9 @@ from scipy import spatial
 
 
 class text_finder_cos:
+    """Основной класс поисковика похожих текстов"""
     def __init__(self) -> None:
+        """Чтение корпуса текста и эмбедингов"""
         with open("./data/corpus.pickle", "rb") as handle:
             self.corpus = pickle.load(handle)
         with open("./data/embeds.pickle", "rb") as handle:
@@ -12,7 +14,7 @@ class text_finder_cos:
         self.model = SentenceTransformer("intfloat/multilingual-e5-small")
 
     def find_text(self, prompt: str) -> str:
-        print(prompt)
+        """Выполяет поиск 3х наиболее подходящих кусков текста, склеивает в строку"""
         prompt = self.model.encode(prompt)
         sim_dict = {}
         text = ""

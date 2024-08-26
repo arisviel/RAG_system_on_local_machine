@@ -1,18 +1,19 @@
+from llm import gemma_handler
 from telegram import Update
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
-    ContextTypes,
-    CallbackContext,
+    ContextTypes
 )
-from llm import gemma_handler
 
+# Создание хэндлера модели
 gemma = gemma_handler()
 
+# Чтение токена телеграма
 with open("./data/token.txt", "r") as t:
     token = t.read()
 
-
+# Функции приема сообщений с бота
 async def q(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(gemma.get_answer(update.message.text[3:]))
 
